@@ -10,30 +10,52 @@
     <link rel="stylesheet" href="dist/css/iziToast.min.css">
     <script src="dist/js/iziToast.min.js" type="text/javascript"></script>
     <title>Register a topic</title>
+    <style>
+        @media (max-width: 768px) {
+            #modal {
+                width: 95% !important;
+                left: 2.5%;
+                top: 0;
+                padding-top: 20px;
+            }
+            .col-md-2, .col-md-10, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-12 {
+                flex: 0 0 100%;
+                max-width: 100%;
+                height: auto !important;
+            }
+            .logo img {
+                width: 80px !important;
+                height: auto;
+            }
+            .container.text-dark.shadow.mt-5 {
+                margin-top: 1rem !important;
+            }
+            .row > [class*='col-'] {
+                margin-bottom: 1rem;
+            }
+            .fluid-container {
+                padding: 0 1rem !important;
+            }
+        }
+        .logo img {
+            width: 120px;
+            height: auto;
+        }
+    </style>
 </head>
-
 <body>
 
  <?php
-    if ($_GET['msg']=="success") { ?>
-        <script>
-       
-           iziToast.success({
-              title: 'Success',
-              message: 'Topic Registered Successfully!',
-              position: 'topRight',
-               animateInside: true,
-          });
-       
+if (isset($_GET['msg']) && $_GET['msg']=="success") { ?>
+    <script>
+       iziToast.success({
+          title: 'Success',
+          message: 'Topic Registered Successfully!',
+          position: 'topRight',
+           animateInside: true,
+      });
     </script> 
-    <?php }
-    else{
-      ?>
-      
-   
-      <?php
-    }
-
+<?php }
 ?>
 
 
@@ -41,74 +63,47 @@
 
 
  <?php
-    if ($_GET['msg']=="topicExist") { ?>
-        <script>
-       
-           iziToast.warning({
-              title: 'Warning',
-              message: 'Topic Alrready Exist!',
-              position: 'topRight',
-               animateInside: true,
-          });
-       
+if (isset($_GET['msg']) && $_GET['msg']=="topicExist") { ?>
+    <script>
+       iziToast.warning({
+          title: 'Warning',
+          message: 'Topic Already Exist!',
+          position: 'topRight',
+           animateInside: true,
+      });
     </script> 
-    <?php }
-    else{
-      ?>
-      
-   
-      <?php
-    }
-
+<?php }
 ?>
 
 
 
 
  <?php
-    if ($_GET['msg']=="regExist") { ?>
-        <script>
-       
-           iziToast.warning({
-              title: 'Warning',
-              message: 'Reg Number Already Registered!',
-              position: 'topRight',
-               animateInside: true,
-          });
-       
+if (isset($_GET['msg']) && $_GET['msg']=="regExist") { ?>
+    <script>
+       iziToast.warning({
+          title: 'Warning',
+          message: 'Reg Number Already Registered!',
+          position: 'topRight',
+           animateInside: true,
+      });
     </script> 
-    <?php }
-    else{
-      ?>
-      
-   
-      <?php
-    }
-
+<?php }
 ?>
 
 
 
  <?php
-    if ($_GET['msg']=="all") { ?>
-        <script>
-       
-           iziToast.warning({
-              title: 'all',
-              message: 'all Registered!',
-              position: 'topRight',
-               animateInside: true,
-          });
-       
+if (isset($_GET['msg']) && $_GET['msg']=="all") { ?>
+    <script>
+       iziToast.warning({
+          title: 'all',
+          message: 'all Registered!',
+          position: 'topRight',
+           animateInside: true,
+      });
     </script> 
-    <?php }
-    else{
-      ?>
-      
-   
-      <?php
-    }
-
+<?php }
 ?>
 
 
@@ -116,7 +111,7 @@
 
 
 
-        <?php                   
+<?php
 $sql = "SELECT * FROM adminsetting WHERE id = '1'";
 $run = mysqli_query($dbcon,$sql);
 $row = mysqli_fetch_assoc($run);
@@ -126,13 +121,7 @@ $password = $row['password'];
 $lower = $row['lower'];
 $higher = $row['higher'];
 
-// $Diploma = $row['Diploma'];
-// $ND = $row['ND'];
-// $HD = $row['HD'];
-// $HND = $row['HND'];
-
-$id = $_GET['id'];
-
+$id = isset($_GET['id']) ? $_GET['id'] : null;
 ?>
     <nav class="navbar navbar-vertical shadow bg-success">
     <div class="navbar-header">
@@ -230,11 +219,11 @@ $id = $_GET['id'];
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-2 col-sm-2 bg-success">
+            <div class="col-12 col-md-2 col-sm-2 bg-success">
         <div class="hader p-3">
         <center>    
             <div class="logo" style="border-radius:1vh ">
-            <img src="img/nilestu.png" class="p-3" alt="">
+            <img src="img/nilestu.png" class="p-3 img-fluid" alt="">
             </div>
                 <h4 style="text-shadow: 0px 1px white;font-weight: bold;">ADMIN DASHBOARD</h4>
             </center>
@@ -269,7 +258,7 @@ $id = $_GET['id'];
             <span>Logout</span>
         </a>
        </div></div>
-        <div class="col-md-10 col-sm-10">
+        <div class="col-12 col-md-10 col-sm-10">
         
       
             <div class="container text-dark shadow mt-5">
@@ -282,57 +271,55 @@ $id = $_GET['id'];
 
                            <div class="container-fluid">
                             <div class="row">
-                                <div class="col-md-5">
+                                <div class="col-12 col-md-5">
                                     <div class="mt-2 p-2">
                                         <label for="name" class="text-dark">Name Of Student</label>
                                         <input type="text" class="form-control" placeholder="Enter student name" id="name" name="studentname">
                                     </div>
                                 </div>
                                 
-                                <div class="col-md-3">
+                                <div class="col-12 col-md-3">
                                     <div class="mt-2 p-2">
-                                        <label for="name" class="text-dark">Student Regno:</label>
-                                        <input type="text" class="form-control" placeholder="Enter student regno" id="name" name="studentregno">
+                                        <label for="studentregno" class="text-dark">Student Regno:</label>
+                                        <input type="text" class="form-control" placeholder="Enter student regno" id="studentregno" name="studentregno">
                                     </div>
                                 </div>
 
-                                <div class="col-md-4">
+                                <div class="col-12 col-md-4">
                                     <div class="mt-2 p-2">
-                                        <label for="name" class="text-dark">Level</label>
-                                        <select name="studentlevel" id="" class="form-control">
+                                        <label for="studentlevel" class="text-dark">Level</label>
+                                        <select name="studentlevel" id="studentlevel" class="form-control">
                                             <option value="">--Select Level--</option>
-                                            <!-- <option value="Diploma">Diploma Programme</option> -->
                                             <option value="ND">ND Programme</option>
-                                            <!-- <option value="HD">HD Programme</option> -->
                                             <option value="HND">HND Programme</option>
                                         </select>
                                     </div>
                                 </div>
                                 
-                                        <input type="hidden" class="form-control" value="<?php echo date('Y-m-d'); ?>" id="name" name="studentdate">
+                                        <input type="hidden" class="form-control" value="<?php echo date('Y-m-d'); ?>" id="studentdate" name="studentdate">
                             </div>
                            </div>
 
 
 
-                           <div class="col-md-4">
+                           <div class="col-12 col-md-4">
                                 <div class="mt-2 p-2">
-                                    <label for="name" class="text-dark">Name Of Supervisor</label>
-                                    <input type="text" class="form-control" placeholder="Enter name of supervisor" id="name" name="studentsupervisor">
+                                    <label for="studentsupervisor" class="text-dark">Name Of Supervisor</label>
+                                    <input type="text" class="form-control" placeholder="Enter name of supervisor" id="studentsupervisor" name="studentsupervisor">
                                 </div>
                             </div>
                             
 
-                            <div class="col-md-8">
+                            <div class="col-12 col-md-8">
                                 <div class="mt-2 p-2">
-                                    <label for="name" class="text-dark">Enter Project Topic</label>
-                                    <input type="text" class="form-control" placeholder="Enter project topic" id="name" name="studenttopic">
+                                    <label for="studenttopic" class="text-dark">Enter Project Topic</label>
+                                    <input type="text" class="form-control" placeholder="Enter project topic" id="studenttopic" name="studenttopic">
                                 </div>
                             </div>
 
                         
-                            <div class="mt-2 p-2">
-                                <input type="submit" value="REGISTER" class="btn btn-lg bg-success text-light form-control" style="letter-spacing: 1vh" id="name" name="registertopic">
+                            <div class="mt-2 p-2 w-100">
+                                <input type="submit" value="REGISTER" class="btn btn-lg bg-success text-light form-control" style="letter-spacing: 1vh" id="registertopic" name="registertopic">
                             </div>
                             <br>
                     </div>

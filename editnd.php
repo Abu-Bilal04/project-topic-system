@@ -10,12 +10,41 @@
     <link rel="stylesheet" href="dist/css/iziToast.min.css">
     <script src="dist/js/iziToast.min.js" type="text/javascript"></script>
     <title>Edit Topic</title>
+    <style>
+@media (max-width: 768px) {
+    #modal {
+        width: 95% !important;
+        left: 2.5%;
+        top: 0;
+        padding-top: 20px;
+    }
+    .col-md-2, .col-md-10 {
+        flex: 0 0 100%;
+        max-width: 100%;
+        height: auto !important;
+    }
+    .logo img {
+        width: 80px !important;
+        height: auto;
+    }
+    .container.text-dark.shadow.mt-5 {
+        margin-top: 1rem !important;
+    }
+    .row > [class*='col-'] {
+        margin-bottom: 1rem;
+    }
+}
+.logo img {
+    width: 120px;
+    height: auto;
+}
+</style>
 </head>
 
 <body>
 
  <?php
-    if ($_GET['msg']=="success") { ?>
+    if (isset($_GET['msg']) && $_GET['msg'] == "success") { ?>
         <script>
        
            iziToast.success({
@@ -153,11 +182,11 @@ $id = $_GET['id'];
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-2 col-sm-2 bg-success">
+            <div class="col-12 col-md-2 bg-success">
         <div class="hader p-3">
         <center>    
             <div class="logo" style="border-radius:1vh ">
-            <img src="img/nilestu.png" class="p-3" alt="">
+            <img src="img/nilestu.png" class="p-3 img-fluid" alt="">
             </div>
                 <h4 style="text-shadow: 0px 1px white;font-weight: bold;">ADMIN DASHBOARD</h4>
             </center>
@@ -192,9 +221,7 @@ $id = $_GET['id'];
             <span>Logout</span>
         </a>
        </div></div>
-        <div class="col-md-10 col-sm-10">
-        
-      
+        <div class="col-12 col-md-10">
             <div class="container text-dark shadow mt-5">
                
                 <form action="" method="post" class="form">
@@ -215,14 +242,14 @@ $id = $_GET['id'];
                             ?>
                            <div class="container-fluid">
                             <div class="row">
-                                <div class="col-md-5">
+                                <div class="col-12 col-md-5">
                                     <div class="mt-2 p-2">
                                         <label for="name" class="text-dark">Name Of Student</label>
                                         <input type="text" class="form-control" value="<?php echo $studentname; ?>" id="name" name="studentname">
                                     </div>
                                 </div>
                                 
-                                <div class="col-md-3">
+                                <div class="col-12 col-md-3">
                                     <div class="mt-2 p-2">
                                         <label for="Regno" class="text-dark">Student Regno:</label>
                                         <input type="text" class="form-control" value="<?php echo $studentregno; ?>" id="Regno" name="studentregno">
@@ -230,7 +257,7 @@ $id = $_GET['id'];
                                 </div>
 
                                 
-                                <div class="col-md-4">
+                                <div class="col-12 col-md-4">
                                     <div class="mt-2 p-2">
                                         <label for="Date" class="text-dark">Date</label>
                                         <input type="text" class="form-control" value="<?php echo $studentdate; ?>" id="Date" name="studentdate">
@@ -240,7 +267,7 @@ $id = $_GET['id'];
                            </div>
                             
 
-                            <div class="col-md-12">
+                            <div class="col-12">
                                 <div class="mt-2 p-2">
                                     <label for="Topic" class="text-dark">Project Topic</label>
                                     <input type="text" class="form-control" value="<?php echo $studenttopic; ?>" id="Topic" name="studenttopic">
@@ -248,7 +275,7 @@ $id = $_GET['id'];
                             </div>
 
                         
-                            <div class="mt-2 p-2">
+                            <div class="mt-2 p-2 w-100">
                                 <input type="submit" value="UPDATE" class="btn btn-lg bg-success text-light form-control" style="letter-spacing: 1vh" id="name" name="updatend">
                             </div>
                             <br>

@@ -11,119 +11,151 @@
     <link rel="stylesheet" href="dist/css/iziToast.min.css">
     <script src="dist/js/iziToast.min.js" type="text/javascript"></script>
     <title>Dashboard</title>
+    <style>
+        @media (max-width: 768px) {
+            #modal {
+                width: 95% !important;
+                left: 2.5%;
+                top: 0;
+                padding-top: 20px;
+            }
+
+            .col-md-2,
+            .col-md-10,
+            .col-md-3,
+            .col-md-5,
+            .col-md-6 {
+                flex: 0 0 100%;
+                max-width: 100%;
+                height: auto !important;
+            }
+
+            .logo img {
+                width: 80px !important;
+                height: auto;
+            }
+
+            .container.text-dark.mt-5 {
+                margin-top: 1rem !important;
+            }
+
+            .row> [class*='col-'] {
+                margin-bottom: 1rem;
+            }
+        }
+
+        .logo img {
+            width: 120px;
+            height: auto;
+        }
+    </style>
 </head>
 
 <body>
 
 
- <?php
-    if ($_GET['msg']=="success") { ?>
+    <?php
+    if (isset($_GET['msg']) && $_GET['msg'] == "success") { ?>
         <script>
-       
-           iziToast.success({
-              title: 'Success',
-              message: 'Profile Updated!',
-              position: 'topRight',
-               animateInside: true,
-          });
-       
-    </script> 
-    <?php }
-    else{
-      ?>
-      
-   
-      <?php
+            iziToast.success({
+                title: 'Success',
+                message: 'Profile Updated!',
+                position: 'topRight',
+                animateInside: true,
+            });
+        </script>
+    <?php } else {
+    ?>
+        <?php
     }
 
-?>
+    ?>
 
-<?php                   
-$sql = "SELECT * FROM adminsetting WHERE id = '1'";
-$run = mysqli_query($dbcon,$sql);
-$row = mysqli_fetch_assoc($run);
+    <?php
+    $sql = "SELECT * FROM adminsetting WHERE id = '1'";
+    $run = mysqli_query($dbcon, $sql);
+    $row = mysqli_fetch_assoc($run);
 
-$name = $row['admin'];
-$password = $row['password'];
-$lower = $row['lower'];
-$higher = $row['higher'];
+    $name = $row['admin'];
+    $password = $row['password'];
+    $lower = $row['lower'];
+    $higher = $row['higher'];
 
-// $Diploma = $row['Diploma'];
-// $ND = $row['ND'];
-// $HD = $row['HD'];
-// $HND = $row['HND'];
+    // $Diploma = $row['Diploma'];
+    // $ND = $row['ND'];
+    // $HD = $row['HD'];
+    // $HND = $row['HND'];
 
-$id = $_GET['id'];
-
-?>
+    $id = isset($_GET['id']) ? $_GET['id'] : null;
+    ?>
     <nav class="navbar navbar-vertical shadow bg-success">
-    <div class="navbar-header">
+        <div class="navbar-header">
             <h3 class="p-2">Project Topics Manager</h3>
-    </div>
-    <div class="navbar-inner p-2" id="openmodal">
-        <i class="bi bi-person-circle" style="font-size: x-large;"></i>
-       <span style="font-size: larger;"><?php echo $name; ?> </span>
-    </div>
-</nav>
-
-<div class="fluid-container mx-auto" id="modal">
-   <div>
-    <span class="cancel" id="clear">&times</span>
-   </div>
-<div class="container text-light" style="padding: 0 6vh;">
-    <div class="container">
-        <i class="bi bi-brightness-high"></i>
-        <i class="bi bi-brightness-low-fill"></i>
-        <i class="bi bi-balloon-fill"></i>
-        <i class="bi bi-balloon"></i>
-        <i class="bi bi-asterisk"></i>
-        <center><i class="bi bi-shield-lock"></i>
-            <h4 style="color: mediumseagreen;">ADMIN SETTING</h4>
-        </center>
-    </div>
-    <form action="" method="POST">
-
-        <h5>Personal Information</h5>
-        <div class="mt-3 text-light">
-            <label for="name" class="text-light">Name</label>
-            <input type="text" class="form-control" name="admin" value="<?php echo $name; ?>">
         </div>
-
-        <div class="mt-2">
-            <label for="pswd">Passwod</label>
-            <input type="password" class="form-control" name="password" id="password" value="<?php echo $password; ?>">
+        <div class="navbar-inner p-2" id="openmodal">
+            <i class="bi bi-person-circle" style="font-size: x-large;"></i>
+            <span style="font-size: larger;"><?php echo $name; ?> </span>
         </div>
+    </nav>
 
+    <div class="fluid-container mx-auto" id="modal">
         <div>
-            <input type="checkbox" name="showPassword" id="showPassword" onclick="show()">
-            <label for="showPassword"  class="showPassword">Show Password</label>
+            <span class="cancel" id="clear">&times</span>
         </div>
-        <br>
-
-        <div class="fluid-container">
-            <h5>Levels</h5>
-            <div class="row">
-                <div class="col-md-6">
-                  <sub for="lower">Lower Level(s)</sub>
-            <select name="lower" id="" class="form-control">
-                <option value="<?php echo $lower; ?>"></option>
-                <option value="Diploma">Diploma</option>
-                <option value="ND">ND</option>
-            </select>
-                </div>
-
-                <div class="col-md-6">
-                    <sub for="hnd">Higher  Level(s)</sub>
-                     <select name="higher" id="" class="form-control">
-                        <option value="<?php echo $higher; ?>"></option>
-                        <option value="Higher Diploma">Higher Diploma</option>
-                        <option value="HND">HND</option>
-                    </select>
-                </div>
+        <div class="container text-light" style="padding: 0 6vh;">
+            <div class="container">
+                <i class="bi bi-brightness-high"></i>
+                <i class="bi bi-brightness-low-fill"></i>
+                <i class="bi bi-balloon-fill"></i>
+                <i class="bi bi-balloon"></i>
+                <i class="bi bi-asterisk"></i>
+                <center><i class="bi bi-shield-lock"></i>
+                    <h4 style="color: mediumseagreen;">ADMIN SETTING</h4>
+                </center>
             </div>
-        </div>
+            <form action="" method="POST">
 
-        <!-- <div class="fluid-container mt-4">
+                <h5>Personal Information</h5>
+                <div class="mt-3 text-light">
+                    <label for="name" class="text-light">Name</label>
+                    <input type="text" class="form-control" name="admin" value="<?php echo $name; ?>">
+                </div>
+
+                <div class="mt-2">
+                    <label for="pswd">Passwod</label>
+                    <input type="password" class="form-control" name="password" id="password" value="<?php echo $password; ?>">
+                </div>
+
+                <div>
+                    <input type="checkbox" name="showPassword" id="showPassword" onclick="show()">
+                    <label for="showPassword" class="showPassword">Show Password</label>
+                </div>
+                <br>
+
+                <div class="fluid-container">
+                    <h5>Levels</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <sub for="lower">Lower Level(s)</sub>
+                            <select name="lower" id="" class="form-control">
+                                <option value="<?php echo $lower; ?>"></option>
+                                <option value="Diploma">Diploma</option>
+                                <option value="ND">ND</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <sub for="hnd">Higher  Level(s)</sub>
+                            <select name="higher" id="" class="form-control">
+                                <option value="<?php echo $higher; ?>"></option>
+                                <option value="Higher Diploma">Higher Diploma</option>
+                                <option value="HND">HND</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="fluid-container mt-4">
             <div class="row">
                 <u>
                     <h6 class="pb-1">LEVELS <sub>(Select Only Two)</sub></h6>
@@ -138,251 +170,244 @@ $id = $_GET['id'];
                
             </div>
         </div> -->
-        <div class="mt-3">
-            <button class="form-control p-3 bg-success text-light" name="adminupdate">Save Changes</button>
+                <div class="mt-3">
+                    <button class="form-control p-3 bg-success text-light" name="adminupdate">Save Changes</button>
+                </div>
+
+                <?php  ?>
+
+            </form>
         </div>
-
-        <?php  ?>
-        
-    </form>
-</div>
-</div>
+    </div>
 
 
 
 
-    <div class="container-fluid">
+    <div class="container-fluid px-2">
         <div class="row">
-            <div class="col-md-2 col-sm-2 bg-success">
-        <div class="hader p-3">
-        <center>    
-            <div class="logo" style="border-radius:1vh ">
-            <img src="img/nilestu.png" class="p-3" alt="">
+            <div class="col-12 col-md-2 col-sm-2 bg-success py-3">
+                <div class="hader p-3">
+                    <center>
+                        <div class="logo" style="border-radius:1vh ">
+                            <img src="img/nilestu.png" class="p-3 img-fluid" alt="">
+                        </div>
+                        <h4 style="text-shadow: 0px 1px white;font-weight: bold;">ADMIN DASHBOARD</h4>
+                    </center>
+                </div>
+                <hr>
+
+                <div class="mt-2">
+                    <a href="dashboard.php">
+                        <i class="bi bi-speedometer"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </div>
+
+                <div class="mt-2">
+                    <a href="register.php">
+                        <i class="bi bi-person-plus-fill"></i>
+                        <span>Register Topic</span>
+                    </a>
+                </div>
+
+
+                <div class="mt-2">
+                    <a href="ndrecords.php">
+                        <i class="bi bi-person-lines-fill"></i>
+                        <span>Registered Topics</span>
+                    </a>
+                </div>
+
+                <div class="mt-2">
+                    <a href="index.html">
+                        <i class="bi bi-box-arrow-in-right"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
             </div>
-                <h4 style="text-shadow: 0px 1px white;font-weight: bold;">ADMIN DASHBOARD</h4>
-            </center>
-        </div>
-        <hr>
-        
-       <div class="mt-2">
-        <a href="dashboard.php">
-            <i class="bi bi-speedometer"></i>
-            <span>Dashboard</span>
-        </a>
-       </div>
-
-       <div class="mt-2">
-        <a href="register.php">
-            <i class="bi bi-person-plus-fill"></i>
-            <span>Register Topic</span>
-        </a>
-       </div>
-
-       
-        <div class="mt-2">
-        <a href="ndrecords.php">
-            <i class="bi bi-person-lines-fill"></i>
-            <span>Registered Topics</span>
-        </a>
-       </div>
-
-        <div class="mt-2">
-        <a href="index.html">
-            <i class="bi bi-box-arrow-in-right"></i>
-            <span>Logout</span>
-        </a>
-       </div></div>
-        <div class="col-md-10 col-sm-10">
-        
-        
-            <div class="container text-dark mt-5">
-        
-        
-                <div class="container text-light">
-                    <div class="row">'
-                        <div class="col-md-5">
-                             <div class="card border-left-success bg-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-light text-uppercase mb-1">
-                                                Total Number Of Students</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                <?php 
+            <div class="col-12 col-md-10 col-sm-10">
+                <div class="container text-dark mt-5 px-2">
+                    <div class="container text-light">
+                        <div class="row">
+                            <div class="col-12 col-md-5 mb-3">
+                                <div class="card border-left-success bg-success shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-light text-uppercase mb-1">
+                                                    Total Number Of Students
+                                                </div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                    <?php
 
                                                     $sqlx = "SELECT COUNT(id) AS total FROM ndtopics";
-                                                    $runx = mysqli_query($dbcon,$sqlx);
+                                                    $runx = mysqli_query($dbcon, $sqlx);
                                                     $rowx = mysqli_fetch_assoc($runx);
                                                     // echo $rowx['total'];
 
-                                                     $sqly = "SELECT COUNT(id) AS total FROM hndtopics";
-                                                    $runy = mysqli_query($dbcon,$sqly);
+                                                    $sqly = "SELECT COUNT(id) AS total FROM hndtopics";
+                                                    $runy = mysqli_query($dbcon, $sqly);
                                                     $rowy = mysqli_fetch_assoc($runy);
                                                     // echo $rowy['total'];
                                                     $sumofTpoics = $rowx['total'] + $rowy['total'];
                                                     echo $sumofTpoics;
 
-                                                ?>
+                                                    ?>
+                                                </div>
                                             </div>
+                                            <!-- <div class="col-auto">
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                        </div> -->
                                         </div>
-                                        <!-- <div class="col-auto">
-                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                                        </div> -->
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="col-md-3">
-                             <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <a href="ndrecords.php" style="text-decoration:none">    
-                                        <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Total <?php echo $lower; ?> Students</div>
-                                            <div class="h5 mb-0 font-weight-bold text-success">
-                                                <?php 
+                            <div class="col-12 col-md-3 mb-3">
+                                <div class="card border-left-success shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <a href="ndrecords.php" style="text-decoration:none">
+                                                <div class="col mr-2">
+                                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                        Total <?php echo $lower; ?> Students
+                                                    </div>
+                                                    <div class="h5 mb-0 font-weight-bold text-success">
+                                                        <?php
 
-                                                    $sqlx = "SELECT COUNT(id) AS total FROM ndtopics";
-                                                    $runx = mysqli_query($dbcon,$sqlx);
-                                                    $rowx = mysqli_fetch_assoc($runx);
-                                                    echo $rowx['total'];
-
-                                                ?>
-                                            </div>
-                                        </div></a>
-                                        <!-- <div class="col-auto">
+                                                        $sqlx = "SELECT COUNT(id) AS total FROM ndtopics";
+                                                        $runx = mysqli_query($dbcon, $sqlx);
+                                                        $rowx = mysqli_fetch_assoc($runx);
+                                                        echo $rowx['total'];
+                                                        ?>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <!-- <div class="col-auto">
                                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
                                         </div> -->
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
 
- 
-                        <div class="col-md-3">
-                             <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <a href="hndrecords.php" style="text-decoration:none">    
-                                        <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Total <?php echo $higher; ?> Students</div>
-                                            <div class="h5 mb-0 font-weight-bold text-success">
-                                                <?php 
+                            <div class="col-12 col-md-3 mb-3">
+                                <div class="card border-left-success shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <a href="hndrecords.php" style="text-decoration:none">
+                                                <div class="col mr-2">
+                                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                        Total <?php echo $higher; ?> Students
+                                                    </div>
+                                                    <div class="h5 mb-0 font-weight-bold text-success">
+                                                        <?php
 
-                                                    $sqlx = "SELECT COUNT(id) AS total FROM hndtopics";
-                                                    $runx = mysqli_query($dbcon,$sqlx);
-                                                    $rowx = mysqli_fetch_assoc($runx);
-                                                    echo $rowx['total'];
-
-                                                ?>
-                                            </div>
-                                        </div></a>
-                                        <!-- <div class="col-auto">
+                                                        $sqlx = "SELECT COUNT(id) AS total FROM hndtopics";
+                                                        $runx = mysqli_query($dbcon, $sqlx);
+                                                        $rowx = mysqli_fetch_assoc($runx);
+                                                        echo $rowx['total'];
+                                                        ?>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <!-- <div class="col-auto">
                                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
                                         </div> -->
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
+
+
                         </div>
 
-        
-                       
-                    </div>
+                        <div class="row mt-5">
+                            <div class="col-12 col-md-6 mb-3">
+                                <div class="container mx-auto table-responsive">
+                                    <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
+                                        <thead>
+                                            <th colspan="4" style="letter-spacing:3vh; color: green">HND</th>
+                                            <tr>
+                                                <th>SN</th>
+                                                <th>Name</th>
+                                                <th>Regno</th>
+                                                <th>Topics</th>
+                                            </tr>
+                                        </thead>
 
-                    <div class="row mt-5">
-                        <div class="col-md-6">
-                            <div class="container mx-auto">
-                                
-                                 <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
-                                    <thead>
-                                        <th colspan="4" style="letter-spacing:3vh; color: green">HND</th>
-                                        <tr>
-                                            <th>SN</th>
-                                            <th>Name</th>
-                                            <th>Regno</th>
-                                            <th>Topics</th>
-                                        </tr>
-                                    </thead>
-                            
-                                    <?php
-                              $sn=1;
-                              $psql = mysqli_query($dbcon,"SELECT * FROM  hndtopics ORDER BY id DESC");
-                              while($prop = mysqli_fetch_array($psql)){ ?>
-                                    <tr>
-                            
-                                        <td>
-                                            <?php echo $sn++; ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $prop['studentname']; ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $prop['studentregno']; ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $prop['studenttopic']; ?>
-                                        </td>
-                            
-                                    </tr>
-                            
-                                    <?php } ?>
-                                </table>
+                                        <?php
+                                        $sn = 1;
+                                        $psql = mysqli_query($dbcon, "SELECT * FROM  hndtopics ORDER BY id DESC");
+                                        while ($prop = mysqli_fetch_array($psql)) { ?>
+                                            <tr>
+
+                                                <td>
+                                                    <?php echo $sn++; ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $prop['studentname']; ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $prop['studentregno']; ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $prop['studenttopic']; ?>
+                                                </td>
+
+                                            </tr>
+
+                                        <?php } ?>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
 
 
 
-                        <div class="col-md-6">
-                            <div class="container mx-auto">
-                                
-                                 <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
-                                    <thead>
-                                        <th colspan="4" style="letter-spacing:3vh; color: green">ND</th>
-                                        <tr>
-                                            <th>SN</th>
-                                            <th>Name</th>
-                                            <th>Regno</th>
-                                            <th>Topics</th>
-                                        </tr>
-                                    </thead>
-                            
-                                    <?php
-                              $sn=1;
-                              $psql = mysqli_query($dbcon,"SELECT * FROM  ndtopics ORDER BY id DESC");
-                              while($prop = mysqli_fetch_array($psql)){ ?>
-                                    <tr>
-                            
-                                        <td>
-                                            <?php echo $sn++; ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $prop['studentname']; ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $prop['studentregno']; ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $prop['studenttopic']; ?>
-                                        </td>
-                            
-                                    </tr>
-                            
-                                    <?php } ?>
-                                </table>
+                            <div class="col-12 col-md-6 mb-3">
+                                <div class="container mx-auto table-responsive">
+                                    <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
+                                        <thead>
+                                            <th colspan="4" style="letter-spacing:3vh; color: green">ND</th>
+                                            <tr>
+                                                <th>SN</th>
+                                                <th>Name</th>
+                                                <th>Regno</th>
+                                                <th>Topics</th>
+                                            </tr>
+                                        </thead>
+
+                                        <?php
+                                        $sn = 1;
+                                        $psql = mysqli_query($dbcon, "SELECT * FROM  ndtopics ORDER BY id DESC");
+                                        while ($prop = mysqli_fetch_array($psql)) { ?>
+                                            <tr>
+
+                                                <td>
+                                                    <?php echo $sn++; ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $prop['studentname']; ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $prop['studentregno']; ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $prop['studenttopic']; ?>
+                                                </td>
+
+                                            </tr>
+
+                                        <?php } ?>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-        
             </div>
-        
-
-            
-
         </div>
     </div>
 
@@ -405,23 +430,23 @@ $id = $_GET['id'];
 
         window.onclick = function (event) {
             if (event.target == modal) {
-            modal.style.display = "none";
-            modal.style.width = "0%";
-        }
+                modal.style.display = "none";
+                modal.style.width = "0%";
+            }
 
         }
     </script>
 
     <script>
         function show() {
-    var password = document.getElementById('password');
-    if (password.type === 'password') {
-        password.type = 'text';
-    } else {
-        password.type = 'password';
-    }
+            var password = document.getElementById('password');
+            if (password.type === 'password') {
+                password.type = 'text';
+            } else {
+                password.type = 'password';
+            }
 
-}
+        }
     </script>
 </body>
 

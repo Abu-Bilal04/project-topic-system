@@ -17,7 +17,7 @@ $higher = $row['higher'];
 // $HD = $row['HD'];
 // $HND = $row['HND'];
 
-$id = $_GET['id'];
+$id = isset($_GET['id']) ? $_GET['id'] : null;
 
 ?>
 
@@ -324,13 +324,38 @@ div a:hover {
     }
 
 }
+
+@media (max-width: 768px) {
+    #modal {
+        width: 95% !important;
+        left: 2.5%;
+        top: 0;
+        padding-top: 20px;
+    }
+    .col-md-2, .col-md-10 {
+        flex: 0 0 100%;
+        max-width: 100%;
+        height: auto !important;
+    }
+    .logo img {
+        width: 80px !important;
+        height: auto;
+    }
+    .container.text-dark.shadow.mt-3 {
+        margin-top: 1rem !important;
+    }
+}
+.logo img {
+    width: 120px;
+    height: auto;
+}
     </style>
 </head>
 
 <body>
 
 <?php
-    if ($_GET['msg']=="success1") { ?>
+    if (isset($_GET['msg']) && $_GET['msg'] == "success1") { ?>
         <script>
        
            iziToast.success({
@@ -448,109 +473,108 @@ div a:hover {
 
 
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-2 col-sm-2 bg-success">
-        <div class="hader p-3">
-        <center>    
-            <div class="logo" style="border-radius:1vh ">
-            <img src="img/nilestu.png" class="p-3" alt="">
+    <div class="row">
+        <div class="col-12 col-md-2 bg-success">
+            <!-- Sidebar content -->
+            <div class="hader p-3">
+                <center>
+                    <div class="logo" style="border-radius:1vh ">
+                        <img src="img/nilestu.png" class="p-3 img-fluid" alt="">
+                    </div>
+                    <h4 style="text-shadow: 0px 1px white;font-weight: bold;">ADMIN DASHBOARD</h4>
+                </center>
             </div>
-                <h4 style="text-shadow: 0px 1px white;font-weight: bold;">ADMIN DASHBOARD</h4>
-            </center>
-        </div>
-        <hr>
-        
-       <div class="mt-2">
-        <a href="dashboard.php">
-            <i class="bi bi-speedometer"></i>
-            <span>Dashboard</span>
-        </a>
-       </div>
+            <hr>
+            
+           <div class="mt-2">
+            <a href="dashboard.php">
+                <i class="bi bi-speedometer"></i>
+                <span>Dashboard</span>
+            </a>
+           </div>
 
-       <div class="mt-2">
-        <a href="register.php">
-            <i class="bi bi-person-plus-fill"></i>
-            <span>Register Topic</span>
-        </a>
-       </div>
+           <div class="mt-2">
+            <a href="register.php">
+                <i class="bi bi-person-plus-fill"></i>
+                <span>Register Topic</span>
+            </a>
+           </div>
 
-       
-        <div class="mt-2">
-        <a href="ndrecords.php">
-            <i class="bi bi-person-lines-fill"></i>
-            <span>Registered Topics</span>
-        </a>
-       </div>
+           
+            <div class="mt-2">
+            <a href="ndrecords.php">
+                <i class="bi bi-person-lines-fill"></i>
+                <span>Registered Topics</span>
+            </a>
+           </div>
 
-        <div class="mt-2">
-        <a href="index.html">
-            <i class="bi bi-box-arrow-in-right"></i>
-            <span>Logout</span>
-        </a>
-       </div></div>
-            <div class="col-md-10 col-sm-10">
+            <div class="mt-2">
+            <a href="index.html">
+                <i class="bi bi-box-arrow-in-right"></i>
+                <span>Logout</span>
+            </a>
+           </div></div>
+        <div class="col-12 col-md-10">
     
-    
-                <div class="container text-dark shadow mt-3">
-                   
-                           
-                                <h3 class="text-dark mb-5">
-                                    <a href="ndrecords.php" class="btn btn-warning">Switch</a>
-                                    <?php echo $higher;?> Project Records</h3>
+            <div class="container text-dark shadow mt-3">
+                <h3 class="text-dark mb-5">
+                    <a href="ndrecords.php" class="btn btn-warning">Switch</a>
+                    <?php echo $higher;?> Project Records
+                </h3>
+                <div class="table-responsive">
+                    <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
+                        <thead>
+                            <tr>
+                                <th>SN</th>
+                                <th>Name</th>
+                                <th>Regno</th>
+                                <th>Supervisor</th>
+                                <th>Topics</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                
+                        <?php
+                  $sn=1;
+                  $psql = mysqli_query($dbcon,"SELECT * FROM  hndtopics ORDER BY id DESC");
+                  while($prop = mysqli_fetch_array($psql)){ ?>
+                        <tr>
+                
+                            <td>
+                                <?php echo $sn++; ?>
+                            </td>
+                            <td>
+                                <?php echo $prop['studentname']; ?>
+                            </td>
+                            <td>
+                                <?php echo $prop['studentregno']; ?>
+                            </td>
+
+                            <td>
+                                <?php echo $prop['studentsupervisor']; ?>
+                            </td>
+                            <td>
+                                <?php echo $prop['studenttopic']; ?>
+                            </td>
+                            
+                            <td>
+                
+                                <a data-tooltip title="Edit" href="edithnd.php?id=<?php echo $prop['id']; ?>"
+                                    class="btn btn-warning btn-sm"><i class="bi bi-pen"></i></a>
                                 
-                                <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
-                                    <thead>
-                                        <tr>
-                                            <th>SN</th>
-                                            <th>Name</th>
-                                            <th>Regno</th>
-                                            <th>Supervisor</th>
-                                            <th>Topics</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                            
-                                    <?php
-                              $sn=1;
-                              $psql = mysqli_query($dbcon,"SELECT * FROM  hndtopics ORDER BY id DESC");
-                              while($prop = mysqli_fetch_array($psql)){ ?>
-                                    <tr>
-                            
-                                        <td>
-                                            <?php echo $sn++; ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $prop['studentname']; ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $prop['studentregno']; ?>
-                                        </td>
-
-                                        <td>
-                                            <?php echo $prop['studentsupervisor']; ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $prop['studenttopic']; ?>
-                                        </td>
-                                        
-                                        <td>
-                            
-                                            <a data-tooltip title="Edit" href="edithnd.php?id=<?php echo $prop['id']; ?>"
-                                                class="btn btn-warning btn-sm"><i class="bi bi-pen"></i></a>
-                                            
-                                            <!-- <a data-tooltip title="Delete" href="delete.php?id=<?php echo $prop['id']; ?>"
-                                                class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></a>
-                            
-                             -->
-                                        </td>
-                            
-                                    </tr>
-                            
-                                    <?php } ?>
-                                </table>
+                                <!-- <a data-tooltip title="Delete" href="delete.php?id=<?php echo $prop['id']; ?>"
+                                    class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></a>
+                
+                 -->
+                            </td>
+                
+                        </tr>
+                
+                        <?php } ?>
+                    </table>
                 </div>
-    
             </div>
+        </div>
     
         
     </div>

@@ -18,7 +18,7 @@ $higher = $row['higher'];
 // $HD = $row['HD'];
 // $HND = $row['HND'];
 
-$id = $_GET['id'];
+$id = isset($_GET['id']) ? $_GET['id'] : null;
 
 ?>
 
@@ -324,25 +324,49 @@ div a:hover {
     }
 
 }
-    </style>
+    @media (max-width: 768px) {
+        #modal {
+            width: 90% !important;
+            left: 5%;
+            top: 0;
+            padding-top: 20px;
+        }
+        .col-md-2, .col-md-10 {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+        .navbar-header h3 {
+            font-size: 1.2rem;
+        }
+        .logo img {
+            width: 80px !important;
+            height: auto;
+        }
+        .container.text-dark.shadow.mt-3 {
+            margin-top: 1rem !important;
+        }
+    }
+    .logo img {
+        width: 120px;
+        height: auto;
+    }
+</style>
 </head>
 <body>
 
 
  <?php
-    if ($_GET['msg']=="success1") { ?>
-        <script>
-       
-           iziToast.success({
-              title: 'Success',
-              message: 'Record Updated Successfully!',
-              position: 'topRight',
-               animateInside: true,
-          });
-       
+if (isset($_GET['msg']) && $_GET['msg']=="success1") { ?>
+    <script>
+       iziToast.success({
+          title: 'Success',
+          message: 'Record Updated Successfully!',
+          position: 'topRight',
+           animateInside: true,
+      });
     </script> 
-    <?php }
-    else{
+<?php }
+else{
       ?>
       
    
@@ -447,7 +471,7 @@ div a:hover {
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-2 col-sm-2 bg-success">
+            <nav class="col-12 col-md-2 col-sm-2 bg-success">
         <div class="hader p-3">
         <center>    
             <div class="logo" style="border-radius:1vh ">
@@ -485,8 +509,8 @@ div a:hover {
             <i class="bi bi-box-arrow-in-right"></i>
             <span>Logout</span>
         </a>
-       </div></div>
-            <div class="col-md-10 col-sm-10">
+       </div></nav>
+            <main class="col-12 col-md-10 col-sm-10">
     
     
                 <div class="container text-dark shadow mt-3">
@@ -496,7 +520,8 @@ div a:hover {
                                     <a href="hndrecords.php" class="btn btn-warning">Switch</a>
                                     <?php echo $lower;?> Project Records</h3>
                                 
-                                <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100 table-responsive">
+                                <div class="table-responsive">
+                    <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
                                     <thead>
                                         <tr>
                                             <th>SN</th>
@@ -547,8 +572,9 @@ div a:hover {
                                     <?php } ?>
                                 </table>
                 </div>
+                </div>
     
-            </div>
+            </main>
     
         
     </div>
