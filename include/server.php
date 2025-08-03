@@ -1,17 +1,15 @@
-
 <?php
 include "db_connection.php";
-  $id = $_GET['id'];
+$id = isset($_GET['id']) ? trim($_GET['id']) : null;
 
 if (isset($_POST['registertopic'])) {
-  
 
- $studentname = $_POST['studentname'];
- $studentregno = $_POST['studentregno'];
- $studentlevel = $_POST['studentlevel'];
- $studentdate = $_POST['studentdate'];
- $studentsupervisor = $_POST['studentsupervisor'];
- $studenttopic = $_POST['studenttopic'];
+ $studentname = trim($_POST['studentname']);
+ $studentregno = trim($_POST['studentregno']);
+ $studentlevel = trim($_POST['studentlevel']);
+ $studentdate = trim($_POST['studentdate']);
+ $studentsupervisor = trim($_POST['studentsupervisor']);
+ $studenttopic = trim($_POST['studenttopic']);
  
 // $topic = $_GET['studenttopic'];
 
@@ -74,10 +72,10 @@ else{
 
 //admin update
 if (isset($_POST['adminupdate'])) {
-  $admin = $_POST['admin'];
-  $password = $_POST['password'];
-  $lower = $_POST['lower'];
-  $higher = $_POST['higher'];
+  $admin = trim($_POST['admin']);
+  $password = trim($_POST['password']);
+  $lower = trim($_POST['lower']);
+  $higher = trim($_POST['higher']);
   
   $sql = "UPDATE adminsetting SET admin = '$admin', password = '$password', lower = '$lower', higher = '$higher'  WHERE id = '1'";
   if (mysqli_query($dbcon,$sql)) {
@@ -91,10 +89,10 @@ if (isset($_POST['adminupdate'])) {
 
 //lower level update
 if (isset($_POST['updatend'])) {
-  $studentname = $_POST['studentname'];
-  $studentregno = $_POST['studentregno'];
-  $studentdate = $_POST['studentdate'];
-  $studenttopic = $_POST['studenttopic'];
+  $studentname = trim($_POST['studentname']);
+  $studentregno = trim($_POST['studentregno']);
+  $studentdate = trim($_POST['studentdate']);
+  $studenttopic = trim($_POST['studenttopic']);
   
   $sql = "UPDATE ndtopics SET studentname = '$studentname', studentregno = '$studentregno', studentdate = '$studentdate', studenttopic = '$studenttopic'  WHERE id = '$id'";
   if (mysqli_query($dbcon,$sql)) {
@@ -109,10 +107,10 @@ if (isset($_POST['updatend'])) {
 
 //higher level update
 if (isset($_POST['updatehnd'])) {
-  $studentname = $_POST['studentname'];
-  $studentregno = $_POST['studentregno'];
-  $studentdate = $_POST['studentdate'];
-  $studenttopic = $_POST['studenttopic'];
+  $studentname = trim($_POST['studentname']);
+  $studentregno = trim($_POST['studentregno']);
+  $studentdate = trim($_POST['studentdate']);
+  $studenttopic = trim($_POST['studenttopic']);
   
   $sql = "UPDATE hndtopics SET studentname = '$studentname', studentregno = '$studentregno', studentdate = '$studentdate', studenttopic = '$studenttopic'  WHERE id = '$id'";
   if (mysqli_query($dbcon,$sql)) {
@@ -126,10 +124,10 @@ if (isset($_POST['updatehnd'])) {
 
 //check login
 if (isset($_POST['adminLogin'])) {
-	$uname = $_POST['username'];
-	$pword = $_POST['password'];
+    $uname = trim($_POST['username']);
+    $pword = trim($_POST['password']);
 
-	$sql = "SELECT * FROM adminsetting WHERE id = '1'";
+    $sql = "SELECT * FROM adminsetting WHERE id = '1'";
   $run = mysqli_query($dbcon,$sql);
   $row = mysqli_fetch_assoc($run);
 
